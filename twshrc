@@ -1,0 +1,11 @@
+#
+# twsh config file
+#
+# Enter your username here in the format username=dontfindme
+username=
+# And the password goes here
+password=
+# How often (in seconds) do you want to fetch new tweets
+refreshtime=30
+# Use SSL API calls
+usessl=yes
