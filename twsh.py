@@ -1,4 +1,4 @@
-#!/opt/local/bin/python2.5
+#!/opt/local/bin/python
 
 import console
 import fileIO
