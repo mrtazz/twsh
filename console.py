@@ -105,3 +105,7 @@ class Console(cmd.Cmd):
         for u in self.updates:
             print '%s%s %s%s: %s' % (GREEN,u.user.name.encode("utf-8"),RED,u.relative_created_at,RESET)
             print '%s>> %s%s' % (PURPLE,RESET,u.text.encode("utf-8"))
+            
+    def do_tweet(self,args):
+        ''' Post a new tweet'''
+        self.api.PostUpdate(args)
