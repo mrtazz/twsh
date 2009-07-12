@@ -87,7 +87,7 @@ class Console(cmd.Cmd):
         
     def do_public(self, friend):
         ''' Get the  public user time line '''
-        self.statuses = self.api.GetUserTimeline(friend, 100)
+        self.statuses = self.api.GetUserTimeline(friend, 20)
         self.statuses.reverse()
         print "Public status messages for %s:" % (friend)
         for s in self.statuses:
