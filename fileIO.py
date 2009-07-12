@@ -1,4 +1,5 @@
 import re
+import sys
 
 class Configuration:
     ''' This class provides storage for the application configuration
