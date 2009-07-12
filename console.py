@@ -23,7 +23,7 @@ class Console(cmd.Cmd):
         '''
         cmd.Cmd.__init__(self)
         self.prompt = RED+"twsh> "+RESET
-        self.intro = "When I grow up, I get to be a twitter shell"
+        #self.intro = "When I grow up, I get to be a twitter shell"
         self.twuser = twuser
         self.twpass = twpass
         #self.updater = TweetUpdateThread.TweetUpdateThread(self, "hello", 30)
