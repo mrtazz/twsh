@@ -2,6 +2,7 @@ import cmd
 import readline
 import TweetUpdateThread
 import twitter
+import os
 
 # Color definitions
 RESET = "\033[0m"
