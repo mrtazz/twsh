@@ -36,6 +36,9 @@ class Console(cmd.Cmd):
         '''
         cmd.Cmd.preloop(self)
         self._hist = []
+        os.system("clear")
+        print "Fetching new tweets..."
+        self.do_refresh()
         
     def precmd(self, line):
         ''' Code to be executed before the actual command. Here we add
