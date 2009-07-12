@@ -2,8 +2,10 @@
 
 import console
 import fileIO
+import os
 
-configurator = fileIO.Configuration("twshrc")
+homedir = os.path.expanduser("~")
+configurator = fileIO.Configuration(homedir+"/.twshrc")
 configuration = configurator.getUserInfo()
 cli = console.Console(configuration['user'],configuration['password'])
 cli.cmdloop()
