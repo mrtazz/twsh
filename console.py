@@ -102,11 +102,11 @@ class Console(cmd.Cmd):
         for f in self.friends:
             print '+ %s%s%s' % (CYAN,f.screen_name,RESET)
 
-    def do_refresh(self, args):
+    def do_refresh(self):
         ''' Get the tweets of your friends '''
-        self.updates = self.api.GetFriendsTimeline()
-        self.updates.reverse()
-        for u in self.updates:
+        updates = self.api.GetFriendsTimeline()
+        updates.reverse()
+        for u in updates:
             print '%s%s %s%s: %s' % (GREEN,u.user.name.encode("utf-8"),RED,u.relative_created_at,RESET)
             print '%s>> %s%s' % (PURPLE,RESET,u.text.encode("utf-8"))
             
