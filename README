@@ -1,0 +1,14 @@
+Usage of twsh is quite simple. Just copy twshrc to ~/.twshrc and enter your twitter login credentials. I know this is not the most secure manner of doing this, but I will eventually implement something better.
+The library from http://code.google.com/p/python-twitter/ is necessary as well as its dependencies.
+
+Until now only very basic commands are implemented:
+refresh: Get newest tweets from friends
+public: Get tweets from yourself or a provided user
+tweet: Post an update
+friends: Get friends list
+quit,logout,exit: End twsh
+
+Planned improvements:
+More secure storage of user credentials
+Offline storage of tweets to only fetch newest ones
+Better exception handling
