@@ -1,7 +1,12 @@
+import sys
 import cmd
 import readline
 import TweetUpdateThread
-import twitter
+try:
+    import twitter
+except:
+    print "error while loading twitter module."
+    sys.exit()
 import os
 
 # Color definitions
