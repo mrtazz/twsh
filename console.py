@@ -10,14 +10,17 @@ except:
 import os
 
 # Color definitions
-RESET = "\033[0m"
-RED = "\033[31m"
-BLACK = "\033[30m"
-GREEN = "\033[32m"
-YELLOW = "\033[33m"
-BLUE = "\033[34m"
-PURPLE = "\033[35m"
-CYAN = "\033[36m"
+color = {
+            'RESET' : "\033[0m",
+            'RED' : "\033[31m",
+            'BLACK' : "\033[30m",
+            'GREEN' : "\033[32m",
+            'YELLOW' : "\033[33m",
+            'BLUE' : "\033[34m",
+            'PURPLE' : "\033[35m",
+            'CYAN' : "\033[36m",
+        }
+
 
 class Console(cmd.Cmd):
     ''' This class creates the CLI with the whole UI stuff '''
@@ -27,15 +30,19 @@ class Console(cmd.Cmd):
             and an intro message. Also the background thread
             to fetch new tweets is started here
         '''
-        cmd.Cmd.__init__(self)
-        self.prompt = RED+"twsh> "+RESET
-        #self.intro = "When I grow up, I get to be a twitter shell"
-        self.twuser = twuser
-        self.twpass = twpass
-        #self.updater = TweetUpdateThread.TweetUpdateThread(self, "hello", 30)
-        self.api = twitter.Api(username=twuser, password=twpass)
-        #self.updater.start()
-        
+        try:
+            cmd.Cmd.__init__(self)
+            self.prompt = color['RED']+"twsh> "+color['RESET']
+            #self.intro = "When I grow up, I get to be a twitter shell"
+            self.twuser = twuser
+            self.twpass = twpass
+            #self.updater = TweetUpdateThread.TweetUpdateThread(self, "hello", 30)
+            self.api = twitter.Api(username=twuser, password=twpass)
+            self.updater.start()
+        except:
+            print "Init failed."
+            #self.updater.setend()
+            sys.exit(-1)
     def preloop(self):
         ''' Stuff to execute before the cmd.loop starts.
             Only the array to hold the cmd history is setup here
@@ -93,28 +100,48 @@ class Console(cmd.Cmd):
         
     def do_public(self, friend):
         ''' Get the  public user time line '''
-        self.statuses = self.api.GetUserTimeline(friend, 20)
+        try:
+            self.statuses = self.api.GetUserTimeline(friend, 20)
+        except:
+            print "Could not get user timeline."
+            sys.exit(-1)
+            
         self.statuses.reverse()
         print "Public status messages for %s:" % (friend)
         for s in self.statuses:
-            print '%s%s: %s' % (RED,s.relative_created_at,RESET)
-            print '%s>> %s%s' % (PURPLE,RESET,s.text.encode("utf-8"))
+            print '%s%s: %s' % (color['RED'],s.relative_created_at,color['RESET'])
+            print '%s>> %s%s' % (color['PURPLE'],color['RESET'],s.text.encode("utf-8"))
                     
     def do_friends(self, args):
         ''' Print the list of friends for the authenticated user '''
-        self.friends = self.api.GetFriends()
+        try:
+            self.friends = self.api.GetFriends()
+        except:
+            print "Could not get friends list."
+            sys.exit(-1)
+            
         print "You are following:"
         for f in self.friends:
-            print '+ %s%s%s' % (CYAN,f.screen_name,RESET)
+            print '+ %s%s%s' % (color['CYAN'],f.screen_name,color['RESET'])
 
     def do_refresh(self):
         ''' Get the tweets of your friends '''
-        updates = self.api.GetFriendsTimeline()
+        try:
+            updates = self.api.GetFriendsTimeline()
+        except:
+            print "Could not get friends timeline."
+            sys.exit(-1)
+            
         updates.reverse()
         for u in updates:
-            print '%s%s %s%s: %s' % (GREEN,u.user.name.encode("utf-8"),RED,u.relative_created_at,RESET)
-            print '%s>> %s%s' % (PURPLE,RESET,u.text.encode("utf-8"))
+            print '%s%s %s%s: %s' % (color['GREEN'],u.user.name.encode("utf-8"),
+                                        color['RED'],u.relative_created_at,color['RESET'])
+            print '%s>> %s%s' % (color['PURPLE'],color['RESET'],u.text.encode("utf-8"))
             
     def do_tweet(self,args):
         ''' Post a new tweet'''
-        self.api.PostUpdate(args)
+        try:
+            self.api.PostUpdate(args)
+        except:
+            print "Could not post update."
+            sys.exit(-1)
