@@ -46,5 +46,6 @@ class Configuration:
         ''' This function returns the user infos read from the
             file as a dictionary
         '''
-        self.ret = {'user': self.username, 'password':self.password,'refreshtime': self.refreshtime, 'ssl': self.usessl}
+        self.ret = {'user': self.username, 'password':self.password,
+                        'refreshtime': self.refreshtime,'ssl': self.usessl}
         return self.ret
