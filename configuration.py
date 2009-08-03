@@ -24,6 +24,7 @@ class Configuration:
                         'CYAN' : "\033[36m",
                     }
         self.configuration = { }
+        self.configuration['RESET'] = 'RESET'
         self.filepath = filepath        
         # regex definitions for configurations
         self.re_username = re.compile("username=")
