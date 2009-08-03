@@ -7,5 +7,10 @@ username=
 password=
 # How often (in seconds) do you want to fetch new tweets
 refreshtime=30
-# Use SSL API calls
-usessl=yes
+# color definitions
+# twsh prompt
+prompt=red
+# time stamp
+timestamp=red
+# color of screen names
+screennames=cyan
