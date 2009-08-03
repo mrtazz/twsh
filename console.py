@@ -25,20 +25,19 @@ color = {
 class Console(cmd.Cmd):
     ''' This class creates the CLI with the whole UI stuff '''
 
-    def __init__(self, twuser, twpass):
+    def __init__(self, configuration):
         ''' The shell is initialized with a twsh prompt and
             and an intro message. Also the background thread
             to fetch new tweets is started here
         '''
+        self.configuration = configuration
         try:
             cmd.Cmd.__init__(self)
-            self.prompt = color['RED']+"twsh> "+color['RESET']
+            self.prompt = color[configuration['prompt']]+"twsh> "+color[configuration['RESET']]
             #self.intro = "When I grow up, I get to be a twitter shell"
-            self.twuser = twuser
-            self.twpass = twpass
-            #self.updater = TweetUpdateThread.TweetUpdateThread(self, "hello", 30)
-            self.api = twitter.Api(username=twuser, password=twpass)
-            self.updater.start()
+            self.updater = TweetUpdateThread.TweetUpdateThread(self, "hello", 30)
+            self.api = twitter.Api(self.configuration['user'],self.configuration['password'])
+            #self.updater.start()
         except:
             print "Init failed."
             #self.updater.setend()
@@ -109,8 +108,8 @@ class Console(cmd.Cmd):
         self.statuses.reverse()
         print "Public status messages for %s:" % (friend)
         for s in self.statuses:
-            print '%s%s: %s' % (color['RED'],s.relative_created_at,color['RESET'])
-            print '%s>> %s%s' % (color['PURPLE'],color['RESET'],s.text.encode("utf-8"))
+            print '%s%s: %s' % (color[configuration['timestamp']],s.relative_created_at,color[configuration['RESET']])
+            print '%s>> %s%s' % (color[configuration['prompt']],color[configuration['RESET']],s.text.encode("utf-8"))
                     
     def do_friends(self, args):
         ''' Print the list of friends for the authenticated user '''
@@ -122,7 +121,7 @@ class Console(cmd.Cmd):
             
         print "You are following:"
         for f in self.friends:
-            print '+ %s%s%s' % (color['CYAN'],f.screen_name,color['RESET'])
+            print '+ %s%s%s' % (color[configuration['screennames']],f.screen_name,color[configuration['RESET']])
 
     def do_refresh(self):
         ''' Get the tweets of your friends '''
@@ -134,9 +133,10 @@ class Console(cmd.Cmd):
             
         updates.reverse()
         for u in updates:
-            print '%s%s %s%s: %s' % (color['GREEN'],u.user.name.encode("utf-8"),
-                                        color['RED'],u.relative_created_at,color['RESET'])
-            print '%s>> %s%s' % (color['PURPLE'],color['RESET'],u.text.encode("utf-8"))
+            print '%s%s %s%s: %s' % (color[configuration['screennames']],u.user.name.encode("utf-8"),
+                                        color[configuration['timestamp']],u.relative_created_at,
+                                        color[configuration['RESET']])
+            print '%s>> %s%s' % (color[configuration['prompt']],color['RESET'],u.text.encode("utf-8"))
             
     def do_tweet(self,args):
         ''' Post a new tweet'''
