@@ -29,11 +29,13 @@ class Configuration:
         self.re_username = re.compile("username=")
         self.re_password = re.compile("password=")
         self.re_refreshtime = re.compile("refreshtime=")
-        self.re_usessl = re.compile("usessl=")
+        self.re_prompt=re.compile("prompt=")
+        self.re_timestamp=re.compile("timestamp=")
+        self.re_screennames=re.compile("screennames=")
         # read data from configfile
-        self.readConfigFile(self.filepath)       
+        self.read_config_file(self.filepath)       
         
-    def readConfigFile(self, filepath):
+    def read_config_file(self, filepath):
         ''' The config file specified via filepath is opened and
             the values are read and stored in the object variables
         '''
@@ -46,13 +48,19 @@ class Configuration:
                     self.configuration['password'] = self.re_password.sub("",line).rstrip(' \n')
                 elif self.re_refreshtime.match(line):
                     self.configuration['refreshtime'] = self.re_refreshtime.sub("",line).rstrip(' \n')
+                elif self.re_prompt.match(line):
+                    self.configuration['prompt'] = self.re_prompt.sub("",line).rstrip(' \n').upper()
+                elif self.re_timestamp.match(line):
+                    self.configuration['timestamp'] = self.re_timestamp.sub("",line).rstrip(' \n').upper()
+                elif self.re_screennames.match(line):
+                    self.configuration['screennames'] = self.re_screennames.sub("",line).rstrip(' \n').upper()
                 else:
                     pass
             self.f.close()
         except:
             print "Unexpected error:", sys.exc_info()[0]
         
-    def getConfiguration(self):
+    def get_configuration(self):
         ''' This function returns the configuration data
         '''
         return self.configuration
