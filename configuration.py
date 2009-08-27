@@ -25,7 +25,7 @@ class Configuration:
                     }
         self.configuration = { }
         self.configuration['RESET'] = 'RESET'
-        self.filepath = filepath        
+        self.filepath = filepath
         # regex definitions for configurations
         self.re_username = re.compile("username=")
         self.re_password = re.compile("password=")
@@ -34,7 +34,7 @@ class Configuration:
         self.re_timestamp=re.compile("timestamp=")
         self.re_screennames=re.compile("screennames=")
         # read data from configfile
-        self.read_config_file(self.filepath)       
+        self.read_config_file(self.filepath)
         
     def read_config_file(self, filepath):
         ''' The config file specified via filepath is opened and
