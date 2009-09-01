@@ -1,0 +1,16 @@
+#
+# twsh config file
+#
+# Enter your username here in the format username=dontfindme
+username=
+# And the password goes here
+password=
+# How often (in seconds) do you want to fetch new tweets
+refreshtime=30
+# color definitions
+# twsh prompt
+prompt=red
+# time stamp
+timestamp=red
+# color of screen names
+screennames=cyan
